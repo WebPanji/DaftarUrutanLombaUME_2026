@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Peserta Lomba Islami 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            .print-shadow-none { shadow: none !important; border: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+
+    <!-- Header & Announcement -->
+    <header class="bg-gradient-to-r from-emerald-700 to-teal-800 text-white shadow-lg no-print">
+        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="bg-emerald-600/60 text-emerald-100 text-xs px-3 py-1 rounded-full uppercase font-semibold tracking-wider">Direktori Resmi</span>
+                <h1 class="text-2xl md:text-3xl font-bold mt-1 flex items-center gap-2">
+                    <i class="fa-solid fa-mosque"></i> Daftar Peserta Lomba Islami
+                </h1>
+                <p class="text-emerald-100 text-sm mt-1">Daftar nama dan instansi peserta terdaftar</p>
+            </div>
+            <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg border border-white/20 text-sm font-medium transition flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-print"></i> Cetak Halaman
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+        
+        <!-- Summary Stats Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-6 no-print">
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">Total Peserta</p>
+                    <p class="text-xl font-bold text-slate-800" id="statTotal">118</p>
+                </div>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-microphone"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">Pidato</p>
+                    <p class="text-xl font-bold text-slate-800" id="statPidato">46</p>
+                </div>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-book-quran"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">MHQ</p>
+                    <p class="text-xl font-bold text-slate-800" id="statMHQ">27</p>
+                </div>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-music"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">Pop Islami</p>
+                    <p class="text-xl font-bold text-slate-800" id="statPop">12</p>
+                </div>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-book-open text-base"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">MQK</p>
+                    <p class="text-xl font-bold text-slate-800" id="statMQK">14</p>
+                </div>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-quran"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium">MTQ</p>
+                    <p class="text-xl font-bold text-slate-800" id="statMTQ">19</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center no-print">
+            <div class="w-full md:w-1/2 relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                    <i class="fa-solid fa-search"></i>
+                </span>
+                <input type="text" id="searchInput" placeholder="Cari nama atau instansi..." 
+                    class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+            </div>
+            
+            <div class="w-full md:w-auto flex flex-wrap gap-2">
+                <select id="categoryFilter" class="px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium text-slate-700">
+                    <option value="">Semua Mata Lomba</option>
+                    <option value="Pidato">Pidato (46)</option>
+                    <option value="MHQ">MHQ (27)</option>
+                    <option value="Pop Islami">Pop Islami (12)</option>
+                    <option value="MQK">MQK (14)</option>
+                    <option value="MTQ">MTQ (19)</option>
+                </select>
+
+                <button id="resetFilterBtn" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-sm font-medium transition flex items-center gap-1 cursor-pointer">
+                    <i class="fa-solid fa-rotate"></i> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabel Peserta -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden print-shadow-none">
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                <h2 class="font-semibold text-slate-700 text-base" id="tableHeaderTitle">Daftar Seluruh Peserta</h2>
+                <span class="text-xs text-slate-500 font-medium" id="recordCounter">Menampilkan 118 peserta</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-600 text-xs font-semibold uppercase tracking-wider border-b border-slate-200">
+                            <th class="py-3.5 px-6 w-16 text-center">No</th>
+                            <th class="py-3.5 px-6">Nama Peserta</th>
+                            <th class="py-3.5 px-6">Instansi / Pesantren / Kampus</th>
+                            <th class="py-3.5 px-6 text-center w-36">Mata Lomba</th>
+                        </tr>
+                    </thead>
+                    <tbody id="participantTableBody" class="divide-y divide-slate-200 text-sm">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print mt-8">
+        <p>&copy; 2026 Panitia Lomba Islami. Seluruh hak cipta dilindungi.</p>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // DATA RESMI PESERTA (118 PESERTA LENGKAP)
+        const participants = [
+            // PIDATO (46)
+            { no: 1, name: "Abbdurrahman", institution: "STAI Al Falah Cicalengka", category: "Pidato" },
+            { no: 2, name: "Alya Salsabila", institution: "PP Al Wafa", category: "Pidato" },
+            { no: 3, name: "Saila Ratu Nursalam", institution: "UIN Bandung", category: "Pidato" },
+            { no: 4, name: "Selsi Putri Hidayati", institution: "Mahad Aljamiah UIN Bandung", category: "Pidato" },
+            { no: 5, name: "Alfiani LatifulHamda", institution: "Mahad Aljamiah UIN", category: "Pidato" },
+            { no: 6, name: "Nashita Nisty", institution: "Mahad Al Jamiah", category: "Pidato" },
+            { no: 7, name: "Nur Wahdaniyah", institution: "Mahad Al Jamiah", category: "Pidato" },
+            { no: 8, name: "Aisyka Ramadani", institution: "Mahad Aljamiah", category: "Pidato" },
+            { no: 9, name: "Ayu Kurnia Fajrin", institution: "PP Salafiyah Almuawanah", category: "Pidato" },
+            { no: 10, name: "Ahmat Taufiq", institution: "Mahad Aljamiah", category: "Pidato" },
+            { no: 11, name: "Muhammad Abdullah Kafaabihi", institution: "PP Nailul Kirom", category: "Pidato" },
+            { no: 12, name: "Aif Suwanda", institution: "PP Al Ihsan", category: "Pidato" },
+            { no: 13, name: "Ahmad Taufik", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 14, name: "Muhammad Luthfi Zulfikar", institution: "SMP SMA IT JAISYUL QUR'AN", category: "Pidato" },
+            { no: 15, name: "Ri'ayah Hiliyaty 'Adilah", institution: "PPM Mahad Al Ghazali Li Ihya Al Turats Al Islami (MAGITS)", category: "Pidato" },
+            { no: 16, name: "Marfel Saputra", institution: "UIN SGD", category: "Pidato" },
+            { no: 17, name: "Isnan Hawari", institution: "Ma'had Al Jamilah", category: "Pidato" },
+            { no: 18, name: "Nur Pitri Srirahayu", institution: "UIN SGD", category: "Pidato" },
+            { no: 19, name: "Rahmat Husnaddin", institution: "Universitas Kebangsaan Republik Indonesia", category: "Pidato" },
+            { no: 20, name: "Risnawati", institution: "PP Nailul Kirom", category: "Pidato" },
+            { no: 21, name: "Deisna Nur Hasanah", institution: "UIN SGD", category: "Pidato" },
+            { no: 22, name: "Fajrul Falah", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 23, name: "Ade Anisa Nur Azizah", institution: "PP Miftahul Falah Cileunyi", category: "Pidato" },
+            { no: 24, name: "Rokib Moulidin Alma Atif", institution: "PKBM ALHILAL", category: "Pidato" },
+            { no: 25, name: "Rizqya El Khaerani Putri", institution: "PPMU Universal", category: "Pidato" },
+            { no: 26, name: "Sofiatussaniah", institution: "PP Al Falah 2 Nagreg", category: "Pidato" },
+            { no: 27, name: "Muhammad Muzaki Ramdani", institution: "PP Nurul Hidayah", category: "Pidato" },
+            { no: 28, name: "Nanda Ayu Adzani", institution: "PP Al Ihsan", category: "Pidato" },
+            { no: 29, name: "Hasna Sa'adah", institution: "PP Miftahul Falah", category: "Pidato" },
+            { no: 30, name: "Marsya Herdiya Putri", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 31, name: "Anis Trisnawati", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 32, name: "Aura Andia", institution: "PPMU Universal", category: "Pidato" },
+            { no: 33, name: "Acep Rohym", institution: "PP Miftahul Falah", category: "Pidato" },
+            { no: 34, name: "Allifah Fauziah", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 35, name: "Siti Alifia Safitri", institution: "UIN SGD", category: "Pidato" },
+            { no: 36, name: "Vivy Alya Khaqiqi", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 37, name: "Fathir Rohman Ramdani", institution: "UIN SGD", category: "Pidato" },
+            { no: 38, name: "Muhammad Istichori Affandi", institution: "PP Miftahuttaufiq", category: "Pidato" },
+            { no: 39, name: "Al Zahra Aurel Setiawan", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 40, name: "Laila Sri Anjani", institution: "PPMU Universal", category: "Pidato" },
+            { no: 41, name: "Mitzy Aulia Sofir", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 42, name: "Nadila Nur Habibah", institution: "UIN SGD", category: "Pidato" },
+            { no: 43, name: "Rossa Amelia Effendi", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 44, name: "Fitri Nursoleha", institution: "Ma'had Al Jamiah", category: "Pidato" },
+            { no: 45, name: "Haifa Khairunnisa", institution: "PP Sirojul Huda", category: "Pidato" },
+            { no: 46, name: "Sabiq Abdurrahman", institution: "PP Al Falah 2 Nagreg", category: "Pidato" },
+
+            // MHQ (27)
+            { no: 1, name: "Bela", institution: "Al Ihsan", category: "MHQ" },
+            { no: 2, name: "Yasmin Hibatullah", institution: "UIN Sunan Gunung Djati Bandung", category: "MHQ" },
+            { no: 3, name: "Lala Lailatul", institution: "Mahad Aljamiah", category: "MHQ" },
+            { no: 4, name: "Fathimah Nur Hasanah", institution: "PP Al Falah 2", category: "MHQ" },
+            { no: 5, name: "Yuriy Maila", institution: "Mahad Tahfidz Qur'an", category: "MHQ" },
+            { no: 6, name: "Azkia Nur Asifah", institution: "Mahad Aljamiah", category: "MHQ" },
+            { no: 7, name: "Rini Kusumawardani", institution: "Mahad Al Jamiah", category: "MHQ" },
+            { no: 8, name: "M Naufal Salman", institution: "STAI Al Falah", category: "MHQ" },
+            { no: 9, name: "Rodotul Jannah", institution: "PP Universal", category: "MHQ" },
+            { no: 10, name: "Kamelia", institution: "PP Universal", category: "MHQ" },
+            { no: 11, name: "Sheila Khoirunnisa", institution: "UIN SGD Bandung", category: "MHQ" },
+            { no: 12, name: "Zul Habiat Ka Muhammad", institution: "Mahad Tahfidz Al Qur'an", category: "MHQ" },
+            { no: 13, name: "Zahid Az-Zuhaili", institution: "UIN SGD Bandung", category: "MHQ" },
+            { no: 14, name: "Fahrizal Syahputra", institution: "-", category: "MHQ" },
+            { no: 15, name: "Mira Rajabiah", institution: "Al Ihsan", category: "MHQ" },
+            { no: 16, name: "Nazri Adlani", institution: "Mahad Tahfidz Alquran", category: "MHQ" },
+            { no: 17, name: "Salwa Nurussyifa Salsabika", institution: "PP Mahasiswa Magist", category: "MHQ" },
+            { no: 18, name: "Muhammad Abduh", institution: "UIN SGD Bandung", category: "MHQ" },
+            { no: 19, name: "Nadia", institution: "PP Universal", category: "MHQ" },
+            { no: 20, name: "Azhara Salwa Efendi", institution: "Al Wafa", category: "MHQ" },
+            { no: 21, name: "Itsna Fathurrahmah Saifudin", institution: "Mahad Al Jamiah", category: "MHQ" },
+            { no: 22, name: "Azmi Naufal Syauqi", institution: "Mahad Aljamiah", category: "MHQ" },
+            { no: 23, name: "Siti Zesica", institution: "Mahad Aljamiah", category: "MHQ" },
+            { no: 24, name: "M Rafly Azizul", institution: "Al Falah Cicalengka", category: "MHQ" },
+            { no: 25, name: "Ulfa Mawadah", institution: "Mahad Al Jamiah", category: "MHQ" },
+            { no: 26, name: "Muhammad Husaini", institution: "-", category: "MHQ" },
+            { no: 27, name: "Farhat", institution: "PP Universal", category: "MHQ" },
+
+            // POP ISLAMI (12)
+            { no: 1, name: "Muhammad Alfan Agustiansyah", institution: "PP Nurul Hidayah", category: "Pop Islami" },
+            { no: 2, name: "Syifa Naila Hamda", institution: "Mahad Universal", category: "Pop Islami" },
+            { no: 3, name: "Metha Hikma Rojiani", institution: "Mahad Universal", category: "Pop Islami" },
+            { no: 4, name: "Delima Zahra Syakila", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "Pop Islami" },
+            { no: 5, name: "Alya Salsabila", institution: "Pesantren Al-Wafa", category: "Pop Islami" },
+            { no: 6, name: "Ahmad Ganjar Safarudin", institution: "PP Al-Qur’an Al-Falah 2 Nagreg-Bandung", category: "Pop Islami" },
+            { no: 7, name: "Zaky Ashabul Kahfi", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "Pop Islami" },
+            { no: 8, name: "Naurah Nafisah", institution: "Mahad Tahfidz Al-Qur’an", category: "Pop Islami" },
+            { no: 9, name: "Muslimah Azzahra", institution: "UIN SGD Bandung", category: "Pop Islami" },
+            { no: 10, name: "Citra Nurafifah", institution: "Pesantren Al Ihsan", category: "Pop Islami" },
+            { no: 11, name: "Anggira Khoirunnisa Burhan", institution: "Mahad Tahfidz Al-Qur’an", category: "Pop Islami" },
+            { no: 12, name: "Neng Syifa Zuhrotul Azizah", institution: "PP Al-Falah 2 Nagreg", category: "Pop Islami" },
+
+            // MQK (14)
+            { no: 1, name: "Fadhil Muhammad", institution: "PP Nurul Hidayah Citaman", category: "MQK" },
+            { no: 2, name: "Najwa Tiani Abroriyah", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "MQK" },
+            { no: 3, name: "Hisyam Hafidz Hakim", institution: "Mahad Universal", category: "MQK" },
+            { no: 4, name: "Agis Maladi", institution: "Mahad Universal", category: "MQK" },
+            { no: 5, name: "Rahmat Zaky", institution: "Pekanbaru Riau", category: "MQK" },
+            { no: 6, name: "Alvin Muhammad Zain", institution: "PP Nailul Kirom", category: "MQK" },
+            { no: 7, name: "Yoga Wahyu Pratama", institution: "BSA UIN SGD Bandung", category: "MQK" },
+            { no: 8, name: "M Rizqi Rehan Hamdillah", institution: "Pesantren Al Ihsan", category: "MQK" },
+            { no: 9, name: "Khoirunnisa Ridwani", institution: "Pesantren Al Ihsan", category: "MQK" },
+            { no: 10, name: "Raya Nur Fauziah", institution: "PP Miftahul Falah", category: "MQK" },
+            { no: 11, name: "Muhammad Ridwan Kholilullah", institution: "PP Miftahul Falah", category: "MQK" },
+            { no: 12, name: "Qithrotun Nada", institution: "Mahad Universal", category: "MQK" },
+            { no: 13, name: "Muhammad Fayadz Mumtadz", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "MQK" },
+            { no: 14, name: "Nur Muhammad Ilham", institution: "Pesantren Al Ihsan", category: "MQK" },
+
+            // MTQ (19)
+            { no: 1, name: "Taufiq Hidayat", institution: "UIN SGD Bandung", category: "MTQ" },
+            { no: 2, name: "Muhammad Ma’bad Maula", institution: "Mahad Tahfidz Al-Qur’an", category: "MTQ" },
+            { no: 3, name: "Syahril Shidiq", institution: "UIN SGD Bandung", category: "MTQ" },
+            { no: 4, name: "Muhammad Reza Firdaus", institution: "PP Al-Falah", category: "MTQ" },
+            { no: 5, name: "Sheila Amelia", institution: "Mahad Tahfidz Al-Qur’an", category: "MTQ" },
+            { no: 6, name: "Fahmi Aldi Farid", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "MTQ" },
+            { no: 7, name: "Farhan Nabil Hawary", institution: "Pesantren Al Ihsan", category: "MTQ" },
+            { no: 8, name: "Najib Maula Ahmad", institution: "Mahad Universal", category: "MTQ" },
+            { no: 9, name: "Abdul Jilan", institution: "Mahad Universal", category: "MTQ" },
+            { no: 10, name: "Mumtaz Wafiq Al Jinan", institution: "Mahad Tahfidz Al-Qur’an", category: "MTQ" },
+            { no: 11, name: "Mohammad Farhan Hidayatuloh", institution: "Mahad Al-Jamiah", category: "MTQ" },
+            { no: 12, name: "Hafira Zakiyah", institution: "PP Al-Falah 2 Nagreg", category: "MTQ" },
+            { no: 13, name: "Silmina", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "MTQ" },
+            { no: 14, name: "Ika Karnaya", institution: "Pesantren Al-Wafa", category: "MTQ" },
+            { no: 15, name: "Bunga Fajar", institution: "Mahad Tahfidz Al-Qur’an UIN SGD Bandung", category: "MTQ" },
+            { no: 16, name: "Dendi Rendiyansyah", institution: "PP Al-Furqon", category: "MTQ" },
+            { no: 17, name: "Rizal Ahmad Saputra", institution: "Pesantren Al Ihsan", category: "MTQ" },
+            { no: 18, name: "Zurnia Rahma", institution: "Mahad Al-Jamiah UIN SGD Bandung", category: "MTQ" },
+            { no: 19, name: "Muhammad Fahru Rozi", institution: "Mahad Universal", category: "MTQ" }
+        ];
+
+        // ELEMENTS
+        const tableBody = document.getElementById("participantTableBody");
+        const searchInput = document.getElementById("searchInput");
+        const categoryFilter = document.getElementById("categoryFilter");
+        const resetFilterBtn = document.getElementById("resetFilterBtn");
+        const recordCounter = document.getElementById("recordCounter");
+        const tableHeaderTitle = document.getElementById("tableHeaderTitle");
+
+        // BADGES STYLING ACCORDING TO CATEGORY
+        function getCategoryBadge(category) {
+            const styles = {
+                "Pidato": "bg-blue-100 text-blue-800 border-blue-200",
+                "MHQ": "bg-purple-100 text-purple-800 border-purple-200",
+                "Pop Islami": "bg-amber-100 text-amber-800 border-amber-200",
+                "MQK": "bg-rose-100 text-rose-800 border-rose-200",
+                "MTQ": "bg-teal-100 text-teal-800 border-teal-200"
+            };
+            return `<span class="px-2.5 py-1 rounded-full text-xs font-semibold border ${styles[category] || 'bg-slate-100 text-slate-800'}">${category}</span>`;
+        }
+
+        // RENDER TABLE DATA
+        function renderTable(data) {
+            tableBody.innerHTML = "";
+            
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="text-center py-8 text-slate-400">
+                            <i class="fa-solid fa-folder-open text-3xl mb-2 block"></i>
+                            Tidak ada peserta yang cocok dengan pencarian.
+                        </td>
+                    </tr>`;
+                recordCounter.textContent = "Menampilkan 0 peserta";
+                return;
+            }
+
+            data.forEach((p, index) => {
+                const row = document.createElement("tr");
+                row.className = "hover:bg-slate-50 transition-colors";
+                row.innerHTML = `
+                    <td class="py-3 px-6 text-center text-slate-400 font-mono text-xs">${index + 1}</td>
+                    <td class="py-3 font-semibold text-slate-800 px-6">${p.name}</td>
+                    <td class="py-3 text-slate-600 px-6">${p.institution}</td>
+                    <td class="py-3 text-center px-6">${getCategoryBadge(p.category)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            recordCounter.textContent = `Menampilkan ${data.length} dari ${participants.length} peserta`;
+        }
+
+        // FILTER FUNCTION
+        function filterData() {
+            const keyword = searchInput.value.toLowerCase().trim();
+            const category = categoryFilter.value;
+
+            const filtered = participants.filter(p => {
+                const matchKeyword = p.name.toLowerCase().includes(keyword) || 
+                                     p.institution.toLowerCase().includes(keyword);
+                const matchCategory = category === "" || p.category === category;
+                return matchKeyword && matchCategory;
+            });
+
+            if (category !== "") {
+                tableHeaderTitle.textContent = `Daftar Peserta Cabang ${category}`;
+            } else {
+                tableHeaderTitle.textContent = "Daftar Seluruh Peserta";
+            }
+
+            renderTable(filtered);
+        }
+
+        // RESET FILTER
+        resetFilterBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            categoryFilter.value = "";
+            filterData();
+        });
+
+        // LISTENERS
+        searchInput.addEventListener("input", filterData);
+        categoryFilter.addEventListener("change", filterData);
+
+        // INITIAL RENDER
+        renderTable(participants);
+    </script>
+</body>
+</html>
